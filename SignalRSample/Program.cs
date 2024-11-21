@@ -2,6 +2,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSignalR();
 
 var app = builder.Build();
 
@@ -15,13 +16,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();
