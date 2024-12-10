@@ -13,7 +13,8 @@ namespace WebApplication1
             UserName = "radu",
             MachineName = "Desktop",
             State = 1,
-            Password = "password"
+            Password = "password",
+            EntryPoint="111"
         };
         public static void Main(string[] args)
         {

@@ -16,7 +16,7 @@ namespace WebApplication1
         }
         // GET api/<ValuesController>/5
         [HttpGet]
-        public string Get(int? id, string machinename, string username, string password, int? state)
+        public string Get(int? id, string machinename, string username, string password, int? state, string entrypoint)
         {
             JobDetails jobDetails = new JobDetails()
             {
@@ -24,19 +24,14 @@ namespace WebApplication1
                 UserName = username,
                 MachineName = machinename,
                 State = 1,
-                Password = password
+                Password = password,
+                EntryPoint = entrypoint
             };
 
 
             _hubContext.Clients.All.SendAsync("ReceiveMessageServer", jobDetails);
 
             return $"{machinename} - {username}";
-        }
-
-        // POST api/<ValuesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
         }
     }
 }
