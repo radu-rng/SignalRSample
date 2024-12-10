@@ -21,15 +21,14 @@ namespace WebApplication1
 
             builder.Services.AddSignalR();
             builder.Services.AddControllers();
-           // builder.Services.AddSingleton<IHubContext<SignalRHub>>();
-var app = builder.Build();
+            var app = builder.Build();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
             if (app.Environment.IsDevelopment())
-{
+            {
 
-}
+            }
             var webSocketOptions = new WebSocketOptions
             {
                 KeepAliveInterval = TimeSpan.FromMinutes(2)
@@ -46,30 +45,22 @@ var app = builder.Build();
 
             _hubContext = app.Services.GetService<IHubContext<SignalRHub>>();
 
-            
-
             new Thread(SendCommands).Start();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-
-             static void SendCommands(object? MachineName)
-            {
-
-                //while (true)
-                //{
-                    Console.WriteLine("Enter your command");
-                    string command = Console.ReadLine();
-                    _hubContext.Clients.All.SendAsync("ReceiveMessageServer", jobDetails);
-                //_hubContext.Clients.Client.SendAsync()
-                //}
-            }
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
         }
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+        static void SendCommands(object? MachineName)
+        {
 
+            //while (true)
+            //{
+            Console.WriteLine("Enter your command");
+            string command = Console.ReadLine();
+            _hubContext.Clients.All.SendAsync("ReceiveMessageServer", jobDetails);
+            //_hubContext.Clients.Client.SendAsync()
+            //}
+        }
     }
-
 }
