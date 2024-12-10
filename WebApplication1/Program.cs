@@ -22,14 +22,14 @@ namespace WebApplication1
             builder.Services.AddSignalR();
             builder.Services.AddControllers();
            // builder.Services.AddSingleton<IHubContext<SignalRHub>>();
-            var app = builder.Build();
+var app = builder.Build();
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
             if (app.Environment.IsDevelopment())
-            {
+{
 
-            }
+}
             var webSocketOptions = new WebSocketOptions
             {
                 KeepAliveInterval = TimeSpan.FromMinutes(2)
@@ -49,7 +49,9 @@ namespace WebApplication1
             
 
             new Thread(SendCommands).Start();
-           
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
 
              static void SendCommands(object? MachineName)
             {
@@ -64,6 +66,9 @@ namespace WebApplication1
             }
         }
 
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
     }
 
